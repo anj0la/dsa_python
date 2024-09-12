@@ -2,6 +2,7 @@ import random
 from datetime import datetime
 from bubble_sort import bubble_sort, bubble_sort_optimized
 from selection_sort import selection_sort, stable_selection_sort
+from insertion_sort import insertion_sort
 
 # Constants
 MAX_VALUE = 10
@@ -9,7 +10,8 @@ SORTING_ALGORITHMS = {
         'Bubble Sort': bubble_sort,
         'Optimized Bubble Sort': bubble_sort_optimized,
         'Selection Sort': selection_sort,
-        'Stable Selection Sort': stable_selection_sort
+        'Stable Selection Sort': stable_selection_sort,
+        'Insertion Sort': insertion_sort,
     }
 
 def create_int_array(max_value: int) -> list[int]:
