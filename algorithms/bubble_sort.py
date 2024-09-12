@@ -1,13 +1,6 @@
-import random
-from datetime import datetime
-
-# Constants
-MAX_VALUE = 1000000
-
-# Functions
 def bubble_sort(arr: list) -> None:
     """
-    Implements the bubble sort algorithm
+    Implements the bubble sort algorithm.
 
     Args:
         arr (list): The input array.
@@ -20,6 +13,14 @@ def bubble_sort(arr: list) -> None:
                 arr[j], arr[j + 1] = arr[j + 1], arr[j]
 
 def bubble_sort_optimized(arr: list) -> None:
+    """
+    Implements the bubble sort algorithm. 
+   
+    It is optimized by stopping the algorithm if no swaps occured in the inner loop (elements at that iteration are sorted).
+
+    Args:
+        arr (list): The input array.
+    """
     n = len(arr)
     for i in range(n):
         swapped = False
