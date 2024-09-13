@@ -4,6 +4,7 @@ from bubble_sort import bubble_sort, bubble_sort_optimized
 from selection_sort import selection_sort, stable_selection_sort
 from insertion_sort import insertion_sort
 from merge_sort import merge_sort
+from quick_sort import quick_sort
 
 # Constants
 MAX_VALUE = 10
@@ -14,6 +15,7 @@ SORTING_ALGORITHMS = {
         'Stable Selection Sort': stable_selection_sort,
         'Insertion Sort': insertion_sort,
         'Merge Sort': merge_sort,
+        'Quick Sort': quick_sort,
     }
 
 def create_int_array(max_value: int) -> list[int]:
@@ -42,7 +44,12 @@ def test_sorting_algorithms(arr: list, algorithms: dict) -> None:
         test_arr = arr.copy()  # Copy the array for each algorithm
         start_time = datetime.now().timestamp()
         
-        sort_function(test_arr)  # Sort using the given function
+        if name == 'Merge Sort':
+            sort_function(test_arr, 0, len(test_arr) - 1)
+        elif name == 'Quick Sort':
+            sort_function(test_arr, 0, len(test_arr) - 1) # Add chosen partition once all have been implemented
+        else:
+            sort_function(test_arr)  # Sort using the given function
         
         end_time = datetime.now().timestamp()
         elapsed_time = end_time - start_time
