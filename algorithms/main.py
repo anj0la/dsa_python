@@ -5,6 +5,7 @@ from selection_sort import selection_sort, stable_selection_sort
 from insertion_sort import insertion_sort
 from merge_sort import merge_sort
 from quick_sort import quick_sort
+from counting_sort import counting_sort
 
 # Constants
 MAX_VALUE = 10
@@ -16,6 +17,7 @@ SORTING_ALGORITHMS = {
         'Insertion Sort': insertion_sort,
         'Merge Sort': merge_sort,
         'Quick Sort': quick_sort,
+        'Counting Sort': counting_sort,
     }
 
 def create_int_array(max_value: int) -> list[int]:
@@ -48,6 +50,8 @@ def test_sorting_algorithms(arr: list, algorithms: dict) -> None:
             sort_function(test_arr, 0, len(test_arr) - 1)
         elif name == 'Quick Sort':
             sort_function(test_arr, 0, len(test_arr) - 1) # Add chosen partition once all have been implemented
+        elif name == 'Counting Sort':
+            test_arr = sort_function(test_arr, max(test_arr))
         else:
             sort_function(test_arr)  # Sort using the given function
         
