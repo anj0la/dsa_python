@@ -25,3 +25,32 @@ def counting_sort(arr: list[int], k: int) -> list[int]:
         count_arr[arr[i]] -= 1
         
     return output_arr
+
+
+def sort_string(arr: list[str]) -> list[str]:
+    """
+    Sorts a string of characters (string array) lexiographically using counting sort.
+
+    Args:
+        arr (list[str]): The input string (or array of characters)
+
+    Returns:
+        list[str]: The sorted string.
+    """
+    n = len(arr)
+        
+    # Convert the strings into their unicode values
+    arr = [(ord(arr[i]) - ord('a') + 1) for i in range(n)] # E.g., arr[i] = a, ord('a') - ord('a') + 1 = 97 - 97 + 1 = 1
+    
+    # Call counting_sort on the array
+    output_array = counting_sort(arr, n)
+    
+    # Convert the strings (as integers) back into their original format
+    output_array = [chr(output_array[i] + (ord('a') - 1)) for i in range(n)]
+    
+    return ''.join(output_array)
+            
+# Testing the sort strings function only
+string = 'supercalifragilisticexpialidocious'
+sorted_string = sort_string(string)
+print(f'String: {string}\nSorted: {sorted_string}')
