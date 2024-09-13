@@ -30,6 +30,8 @@ def counting_sort(arr: list[int], k: int) -> list[int]:
 def sort_string(arr: list[str]) -> list[str]:
     """
     Sorts a string of characters (string array) lexiographically using counting sort.
+    
+    Solved on GeeksForGeeks: https://www.geeksforgeeks.org/problems/counting-sort/0
 
     Args:
         arr (list[str]): The input string (or array of characters)
