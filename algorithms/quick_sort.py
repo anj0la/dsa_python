@@ -1,3 +1,5 @@
+import random
+
 def hoare_partition(arr: list, low: int, high: int) -> int:
     """
     Implements the Hoare partition with the pivot as the first element. 
@@ -116,3 +118,16 @@ def quick_sort(arr: list, low: int, high: int, chosen_partition: str = 'hoare') 
             quick_sort(arr, low, pivot_loc - 1)
             quick_sort(arr, pivot_loc + 1, high)
         
+def quick_sort_return(arr: list[int]) -> list[int]:
+    if len(arr) <= 1:
+        return arr
+
+    pivot = random.choice(arr)
+
+    left = [x for x in arr if x < pivot]
+    middle = [x for x in arr if x == pivot]
+    right = [x for x in arr if x > pivot]
+
+    return quick_sort_return(left) + middle + quick_sort_return(right)
+
+    
