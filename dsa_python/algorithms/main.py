@@ -6,6 +6,7 @@ from insertion_sort import insertion_sort
 from merge_sort import merge_sort
 from quick_sort import quick_sort
 from counting_sort import counting_sort
+from heap_sort import heap_sort
 
 # Constants
 MAX_VALUE = 10
@@ -18,6 +19,7 @@ SORTING_ALGORITHMS = {
         'Merge Sort': merge_sort,
         'Quick Sort': quick_sort,
         'Counting Sort': counting_sort,
+        'Heap Sort': heap_sort
     }
 
 def create_int_array(max_value: int) -> list[int]:

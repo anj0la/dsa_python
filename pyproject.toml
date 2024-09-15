@@ -1,0 +1,22 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "dsa_python"
+version = "1.0"
+description = "Implementing common data structures and algorithms in Python to practice for coding interviews."
+authors = [
+    { name = "Anjola Aina", email = "anjola.aina@gmail.com" }
+]
+homepage = "https://github.com/anj0la/dsa_python"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent"
+]
+
+[project.urls]
+homepage = "https://github.com/anj0la/dsa_python"
+
+[tool.hatch.build.targets.wheel]
+packages = ["dsa_python/algorithms", "dsa_python/data_structures"]
