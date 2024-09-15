@@ -1,20 +1,55 @@
+"""
+File: binary_heap.py
+
+Author: Anjola Aina
+Date Modified: September 15th, 2024
+
+This file contains a class representing a binary max heap, along with common heap operations.
+"""
 class MaxHeap:
-    def __init__(self):
+    def __init__(self) -> None:
         self.heap = []
     
-    def parent(self, i):
+    def parent(self, i: int) -> int:
+        """
+        Returns the parent node of the given child node.
+
+        Args:
+            i (int): The child node.
+
+        Returns:
+            int: The parent of the given child node.
+        """
         return (i - 1) // 2
     
-    def left(self, i):
+    def left(self, i: int) -> int:
+        """
+        Returns the left child of the given parent node.
+
+        Args:
+            i (int): The parent node.
+
+        Returns:
+            int: The left child of the parent node.
+        """
         return (2 * i) + 1
     
-    def right(self, i):
+    def right(self, i: int) -> int:
+        """
+        Returns the right child of the given parent node.
+
+        Args:
+            i (int): The parent node.
+
+        Returns:
+            int: The right child of the parent node.
+        """
         return (2 * i) + 2
     
-    def is_empty(self):
+    def is_empty(self) -> bool:
         return len(self.heap) == 0 # If heap_size is 0, return True; otherwise, return False
     
-    def build_heap(self, x: list[int]) -> None:
+    def build_max_heap(self, x: list[int]) -> None:
         """
         Builds a max heap from the given array.
 
@@ -25,7 +60,7 @@ class MaxHeap:
         for i in range(len(self.heap) // 2 - 1, -1, -1):
             self.heapify(i, len(self.heap))
     
-    def get_max(self):
+    def get_max(self) -> int:
         """
         Gets the maximum element of a heap.
 
@@ -40,8 +75,9 @@ class MaxHeap:
         else:
             raise RuntimeError('Cannot get the maximum item from an empty heap.')
         
-    def extract_max(self):
-        """_summary_
+    def extract_max(self) -> int:
+        """
+        Removes and returns the maximum element of a heap.
 
         Raises:
             RuntimeError: Occurs when the heap is empty.
@@ -58,10 +94,24 @@ class MaxHeap:
         
         self.heap[0], self.heap[-1] = self.heap[-1], self.heap[0]
         max = self.heap.pop()
-        self.heapify(0, len(self.heap)) # Max heapify down from the root to fix max heap property
+        # Heapify from the root to restore the heap property
+        self.heapify(0, len(self.heap)) 
         return max
     
-    def remove(self, i):
+    def remove(self, i: int) -> int:
+        """
+        Removes and returns an element from the heap.
+
+        Args:
+            i (int): The index of the element to be removed.
+
+        Raises:
+            RuntimeError: Occurs when the heap is empty.
+            IndexError: Occurs when the index is less than 0 or greater than the heap size.
+
+        Returns:
+            int: The removed element.
+        """
         if self.is_empty():
             raise RuntimeError('Cannot extract the maximum item from an empty heap.')
         
@@ -124,15 +174,39 @@ class MaxHeap:
             self.heap[i], self.heap[self.parent(i)] = self.heap[self.parent(i)], self.heap[i]
             i = self.parent(i)
             
-    def _increase_val(self, i, new_val):
+    def _increase_val(self, i: int, new_val: int) -> None:
+        """
+        Increases the value of an element in the heap.
+
+        Args:
+            i (int): The index of the element to be changed.
+            new_val (int): The new value of the element.
+        """
         self.heap[i] = new_val
         self._shift_up(i)
         
-    def _decrease_val(self, i, new_val):
+    def _decrease_val(self, i: int, new_val: int) -> None:
+        """
+        Decreases the value of an element in the heap.
+
+        Args:
+            i (int): The index of the element to be changed.
+            new_val (int): The new value of the element.
+        """
         self.heap[i] = new_val
         self.heapify(i, len(self.heap))
         
-    def change_val(self, i, new_val):
+    def change_val(self, i: int, new_val: int) -> None:
+        """
+        Changes the value of an element in the heap.
+
+        Args:
+            i (int): The index of the element to be changed.
+            new_val (int): The new value of the element.
+
+        Raises:
+            IndexError: Occurs when the index is less than 0 or greater than the heap size.
+        """
         if i >= len(self.heap) or i < 0: 
             raise IndexError(f'Index {i} out of bounds for a heap of size: {len(self.heap)}.')
         if self.heap[i] == new_val:
@@ -143,32 +217,8 @@ class MaxHeap:
         else:
             self._decrease_val(i, new_val)
         
-    def print_heap(self):
+    def print_heap(self) -> None:
+        """
+        Prints the heap.
+        """
         print(self.heap)
-            
-maxHeap = MaxHeap()
-test_arr = [5, 12, 64, 1, 37, 90, 91, 97]
-
-# Testing inserting
-maxHeap.insert(5)
-maxHeap.insert(12)
-maxHeap.insert(64)
-maxHeap.insert(1)
-maxHeap.insert(37)
-maxHeap.insert(90)
-maxHeap.insert(91)
-maxHeap.insert(97)
-
-# Printing heap
-maxHeap.print_heap()
-
-# Extract max
-max = maxHeap.extract_max()
-
-print(max)
-
-# Printing heap
-maxHeap.print_heap()
-
-
-
