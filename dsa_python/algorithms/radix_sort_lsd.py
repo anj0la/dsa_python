@@ -30,7 +30,6 @@ def radix_sort_lsd(arr: list[int]):
     while m // exp > 0:
         count_sort(arr, exp)
         exp *= 10
-        
 
 arr = [170, 45, 75, 90, 802, 24, 2, 66]
 
