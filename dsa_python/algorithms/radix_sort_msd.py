@@ -7,7 +7,10 @@ def char_at(string: str, d: int):
     return ord(string[d])
 
 def digit_at(x: int, d: int):
-    return int((x / math.pow(10, d - 1)) % 10)
+    if d <= 0:
+        return 0  # Assuming we pad with 0s for missing digits
+    return (x // (10 ** (d - 1))) % 10
+
 
 def count_sort_int(arr: list[int], low: int, high: int, d: int):
     count = [0] * (10 + 2) # Base = 10
@@ -55,64 +58,42 @@ def count_sort_str(arr: list[str], low: int, high: int, d: int):
         arr[i] = temp[i - low]
         
     return count
+    
+def msd_sort_int(arr: list[int], low: int, high: int, d: int):
+    # Base case
+    if high <= low or d <= 0:
+        return arr
+    # Recursion
+    count = count_sort_int(arr, low, high, d) 
+    for j in range(10):
+        arr = msd_sort_int(arr, low + count[j], low + count[j + 1] - 1, d - 1)
+    return arr
 
-def count_sort(arr: list[str], low: int, high: int, d: int, base: int):
-    is_string = (base == 256)
-    count = [0] * (base + 1) if is_string else [0] * (base + 2)
-    temp = defaultdict(str) if is_string else defaultdict(int)
-    
-    # Storing occurences in count
-    for i in range(low, high + 1):
-        if is_string:
-            c = char_at(arr[i], d)
-        else:
-            c = digit_at(arr[i], d)
-        count[c + 2] += 1
-        
-    stop = base if is_string else base + 1
-    for j in range(stop):
-        count[j + 1] += count[j]
-    
-    for i in range(low, high + 1):
-        if is_string:
-            c = char_at(arr[i], d)
-        else:
-            c = digit_at(arr[i], d)
-        temp[count[c + 1]] = arr[i]
-        count[c + 1] += 1
-        
-    for i in range(low, high + 1):
-        arr[i] = temp[i - low]
-        
-    return count
-    
-        
-def msd_sort(arr: list[int] | list[str], low: int, high: int, d: int, base: int):
+def msd_sort_str(arr: list[str], low: int, high: int, d: int):
     # Base case
     if high <= low:
         return arr
     # Recursion
-    count = count_sort(arr, low, high, d, base) 
-    for j in range(base):
-        arr = msd_sort(arr, low + count[j], low + count[j + 1] - 1, d - 1, base)
+    count = count_sort_str(arr, low, high, d) 
+    for j in range(256):
+        arr = msd_sort_str(arr, low + count[j], low + count[j + 1] - 1, d - 1)
     return arr
         
 def radix_sort_msd(arr: list[int] | list[str]):
     n = len(arr)
     if type(arr[0]) == int:
         m = max(arr)
-        d = int(math.floor(math.log10(abs(m)))) + 1 # Getting the exponential value of maxmium value
-        base = 10
+        d = len(str(abs(m)))
+        print(m, d)
+        return msd_sort_int(arr, 0, n - 1, d)
     elif type(arr[0]) == str:
-        d = 0
-        base = 256
+        return msd_sort_str(arr, 0, n - 1, 0)
     else:
         raise ValueError('The given array is not a list of integers or a list of strings.')
-    return msd_sort(arr, 0, n - 1, d, base)
     
     
 # Input array
-arr = [9330, 9950, 718, 8977, 6790, 95, 9807, 741, 8586, 5710]
+arr = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 print("Unsorted array: ",arr)
 
 # Function Call

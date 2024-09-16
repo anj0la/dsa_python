@@ -1,4 +1,11 @@
-def count_sort(arr: list[int], exp: int):
+def count_sort(arr: list[int], exp: int) -> None:
+    """
+    Implements counting sort for radix sort.
+
+    Args:
+        arr (list[int]): The input array
+        exp (int): The expoential value.
+    """
     n = len(arr)
     
     count = [0] * 10 # b = 10
@@ -23,17 +30,17 @@ def count_sort(arr: list[int], exp: int):
     for i in range(n):
         arr[i] = out[i]
 
-def radix_sort_lsd(arr: list[int]):
+def radix_sort_lsd(arr: list[int]) -> None:
+    """
+    Implements radix sort using the least significant digits.
+    Digits are sorted in their correct locations using counting sort.
+
+    Args:
+        arr (list[int]): The input array.
+    """
     m = max(arr)
     exp = 1
     
     while m // exp > 0:
         count_sort(arr, exp)
         exp *= 10
-
-arr = [170, 45, 75, 90, 802, 24, 2, 66]
-
-# Function Call
-radix_sort_lsd(arr)
-
-print(arr)

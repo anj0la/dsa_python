@@ -7,6 +7,8 @@ from merge_sort import merge_sort
 from quick_sort import quick_sort
 from counting_sort import counting_sort
 from heap_sort import heap_sort
+from radix_sort_lsd import radix_sort_lsd
+from radix_sort_msd import radix_sort_msd
 
 # Constants
 MAX_VALUE = 10
@@ -19,7 +21,9 @@ SORTING_ALGORITHMS = {
         'Merge Sort': merge_sort,
         'Quick Sort': quick_sort,
         'Counting Sort': counting_sort,
-        'Heap Sort': heap_sort
+        'Heap Sort': heap_sort,
+        'Radix Sort LSD': radix_sort_lsd,
+        'Radix Sort MSD': radix_sort_msd
     }
 
 def create_int_array(max_value: int) -> list[int]:
@@ -55,6 +59,7 @@ def test_sorting_algorithms(arr: list, algorithms: dict) -> None:
         elif name == 'Counting Sort':
             test_arr = sort_function(test_arr, max(test_arr))
         else:
+            print(arr)
             sort_function(test_arr)  # Sort using the given function
         
         end_time = datetime.now().timestamp()
