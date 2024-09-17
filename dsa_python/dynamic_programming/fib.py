@@ -30,11 +30,12 @@ def fib_bottom_up(n):
     return bottom_up[n]
         
 
-def main(n):
+def main():
+    n = 5
     print(f'fib({n}) = {fib(n)}')
     print(f'fib_memo({n}) = {fib_memo(n)}')
     print(f'fib_bottom_up({n}) = {fib_bottom_up(n)}')
 
 if __name__ == '__main__':
-    main(5)
+    main()
     
