@@ -33,7 +33,7 @@ def min_ignore_none(a: int, b: int) -> int:
         return a
     return min(a, b)
 
-def minimum_coins(coins, m):
+def minimum_coins(coins: int, m: int) -> int:
     # Base case occurs when no more coins are required
     if m == 0:
         answer = 0
@@ -41,11 +41,54 @@ def minimum_coins(coins, m):
         # Otherwise, get the answer from the subproblems
         answer = None
         for coin in coins:
-            # Example: if m = 13, then the  subproblems for each coin are as follows: (13 - 5)
-            subproblem = m - coin # The current subproblem
-            if subproblem >= 0: # Skip solutions where we try to reach m from a negative subproblem
+            # Example: if m = 13, then the  subproblems for each coin are as follows: (13 - 5) = 8, (13 - 4) = 9, (13 - 1) = 12           
+            subproblem = m - coin 
+            # Skip solutions where we try to reach m from a negative subproblem
+            if subproblem >= 0: 
                 answer = min_ignore_none(answer, minimum_coins(coins, subproblem) + 1)
     return answer
+
+def minimum_coins_tail(coins: int, m: int, curr_answer: int = 0, best_answer: int | None = None) -> int:
+     # Base case occurs when no more coins are required
+    if m == 0:
+        return curr_answer
+    # Ignore negative subproblems, so return the best answer  
+    if m < 0:
+        return best_answer
+    else:
+        for coin in coins:
+            subproblem = m - coin 
+            candidate_answer = minimum_coins_tail(coins, subproblem, curr_answer + 1, best_answer)
+            
+            # Update the best answer
+            if best_answer is None or (candidate_answer is not None and candidate_answer < best_answer):
+                best_answer = candidate_answer
+                
+    return 
+
+def minimum_coins_memo_helper(coins, m, memo):
+    # If answer has already been computed, return it
+    if memo[m]:
+        return memo[m]
+    # Base case occurs when no more coins are required
+    if m == 0:
+        answer = 0
+    else:
+        # Otherwise, get the answer from the subproblems
+        answer = None
+        for coin in coins:
+            # Example: if m = 13, then the  subproblems for each coin are as follows: (13 - 5) = 8, (13 - 4) = 9, (13 - 1) = 12
+            subproblem = m - coin
+            # Skip solutions where we try to reach m from a negative subproblem
+            if subproblem >= 0: 
+                answer = min_ignore_none(answer, minimum_coins(coins, subproblem) + 1)  
+    # Caching the result so when we see it again, we return the cached result      
+    memo[m] = answer 
+    return answer
+
+def minimum_coins_memo(coins, m):
+    memo = [None] * (m + 1)
+    return minimum_coins_memo_helper(coins, m, memo)
 
 def minimum_coins_tail(coins: int, m: int, curr_answer: int = 0, best_answer: int | None = None):
      # Base case occurs when no more coins are required
@@ -67,8 +110,10 @@ def minimum_coins_tail(coins: int, m: int, curr_answer: int = 0, best_answer: in
 def main():
     coins = [1, 4, 5]
     m = 13
-    print(minimum_coins(coins, m))
-    print(minimum_coins_tail(coins, m))
+    print(f'minimum_coins({coins}, {m}) = {minimum_coins(coins, m)}')
+    print(f'minimum_coins_tail({coins}, {m}) = {minimum_coins_tail(coins, m)}')
+    print(f'minimum_coins_memo({coins}, {m}) = {minimum_coins_memo(coins, m)}')
+
     
 if __name__ == '__main__':
    main()
