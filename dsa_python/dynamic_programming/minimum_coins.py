@@ -25,6 +25,7 @@ for coin in [1, 4, 5]: # Assume coin = 1
     answer = min_ignore_none(None, minimum_coins[[1, 4, 5], 12] + 1) # The + 1 increments the amount of coins we have used so far
 return answer
 """
+from collections import defaultdict
 
 def min_ignore_none(a: int, b: int) -> int:
     if not a:
@@ -48,23 +49,6 @@ def minimum_coins(coins: int, m: int) -> int:
                 answer = min_ignore_none(answer, minimum_coins(coins, subproblem) + 1)
     return answer
 
-def minimum_coins_tail(coins: int, m: int, curr_answer: int = 0, best_answer: int | None = None) -> int:
-     # Base case occurs when no more coins are required
-    if m == 0:
-        return curr_answer
-    # Ignore negative subproblems, so return the best answer  
-    if m < 0:
-        return best_answer
-    else:
-        for coin in coins:
-            subproblem = m - coin 
-            candidate_answer = minimum_coins_tail(coins, subproblem, curr_answer + 1, best_answer)
-            
-            # Update the best answer
-            if best_answer is None or (candidate_answer is not None and candidate_answer < best_answer):
-                best_answer = candidate_answer
-                
-    return 
 
 def minimum_coins_memo_helper(coins, m, memo):
     # If answer has already been computed, return it
@@ -102,13 +86,37 @@ def minimum_coins_bottom_up(coins, m):
                 
     return memo[m]
 
+
+def how_many_ways(coins, m):
+    """
+    Given a set of coin values coins = {c1, c2, c3, ..., ck} and a target sum of money m, in how many ways can we form the sum m
+    using these coins?
+
+    Args:
+        coins (_type_): _description_
+        m (_type_): _description_
+    """
+    memo = defaultdict(int)
+    memo[0] = 1
+    
+    for i in range(1, m + 1):
+        memo[i] = 0
+        
+        for coin in coins:
+            subproblem = i - coin
+            if subproblem >= 0:
+                memo[i] += memo[subproblem]
+                
+    return memo[m]
+
 def main():
     coins = [1, 4, 5]
     m = 13
     print(f'minimum_coins({coins}, {m}) = {minimum_coins(coins, m)}')
-    print(f'minimum_coins_tail({coins}, {m}) = {minimum_coins_tail(coins, m)}')
     print(f'minimum_coins_memo({coins}, {m}) = {minimum_coins_memo(coins, m)}')
     print(f'minimum_coins_bottom_up({coins}, {m}) = {minimum_coins_bottom_up(coins, m)}')
+    print(f'how_many_ways({coins}, {m}) = {how_many_ways(coins, m)}')
+
 
 if __name__ == '__main__':
    main()
