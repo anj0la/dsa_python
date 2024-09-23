@@ -57,20 +57,7 @@ def get_max(root):
     if not root.right:
         return root.val
     
-    return get_max(root.right)
-      
-"""        
-        - [ ] print_values // prints the values in the tree, from min to max
-        - [ ] delete_tree
-        - [ ] is_in_tree // returns true if a given value exists in the tree
-        - [ ] [get_height // returns the height in nodes (single node's height is 1)](https://www.geeksforgeeks.org/find-the-maximum-depth-or-height-of-a-tree/)
-        - [ ] get_min   // returns the minimum value stored in the tree
-        - [ ] get_max   // returns the maximum value stored in the tree
-        - [ ] [is_binary_search_tree](https://leetcode.com/problems/validate-binary-search-tree/)
-        - [ ] delete_value
-        - [ ] get_successor // returns the next-highest value in the tree after given value, -1 if none
- """
-        
+    return get_max(root.right)      
         
 if __name__ == '__main__':
     root = TreeNode(50)
