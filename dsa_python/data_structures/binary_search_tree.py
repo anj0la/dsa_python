@@ -57,7 +57,44 @@ def get_max(root):
     if not root.right:
         return root.val
     
-    return get_max(root.right)      
+    return get_max(root.right)     
+
+def get_successor(node):
+    node = node.right
+    while node and node.left:
+        node = node.left
+        
+    return node
+
+def get_predecessor(node):
+    node = node.left
+    while node and node.right:
+        node = node.right
+        
+def delete(root, val):
+    if not root:
+        return None
+    
+    if val < root.val:
+        root.left = delete(root.left, val)
+    elif val > root.val:
+        root.right = delete(root.right, val)
+    else: # We are at the node we want to delete
+        
+        # Case 1 & 2 - When root has 0 children or either only one child (left or right subtree)
+        if not root.left:
+            return root.right
+            
+        if not root.right:
+            return root.left
+            
+        # Case 3 - root's left and right children have nodes (i.e., left and right are subtrees)
+        succ = get_successor(root)
+        root.val = succ.val
+        root.right = delete(root.right, succ.val)
+        
+    return root
+        
         
 if __name__ == '__main__':
     root = TreeNode(50)
@@ -86,3 +123,16 @@ if __name__ == '__main__':
     
     max_val = get_max(root)
     print('Maximum value of tree: ', max_val)
+    
+    root = delete(root, 80)
+    print_values(root)
+    print()
+    
+"""     root = delete(root, 25)
+    print_values(root)
+    print()
+    
+    root = delete(root, 30)
+    print_values(root)
+    print()
+     """
