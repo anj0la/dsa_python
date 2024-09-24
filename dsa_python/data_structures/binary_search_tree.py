@@ -37,7 +37,20 @@ def is_in_tree(root, val):
         return is_in_tree(root.left, val)
     else: # val > root.val
         return is_in_tree(root.right, val)  
-
+    
+def is_binary_search_tree(root):
+    
+    def valid(node, min, max):
+        if not node:
+            return True
+        
+        if not(min < node.val < max):
+            return False
+        
+        return valid(node.left, min, node.val) and valid(node.right, node.val, max)
+    
+    return valid(root, float('-inf'), float('inf'))
+        
 def get_height(root):
     if not root:
         return 0
@@ -169,3 +182,6 @@ if __name__ == '__main__':
     
     predecessor = get_inorder_predecessor(root, 30)
     print('30\'s predecessor is: ', predecessor.val)
+    
+    is_bst = is_binary_search_tree(root)
+    print('The following tree is a binary search tree: ', is_bst)
