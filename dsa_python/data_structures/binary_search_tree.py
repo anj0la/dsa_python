@@ -59,6 +59,7 @@ def get_max(root):
     
     return get_max(root.right)     
 
+# Assumes node's right exists
 def get_successor(node):
     node = node.right
     while node and node.left:
@@ -66,10 +67,49 @@ def get_successor(node):
         
     return node
 
+# Assumes node's left exists
 def get_predecessor(node):
     node = node.left
     while node and node.right:
         node = node.right
+        
+    return node
+        
+def get_inorder_successor(root, val):
+    succ = TreeNode(None)
+    
+    while root:
+        # Right subtree exists
+        if val == root.val and root.right:
+            return get_successor(root)
+        # Right subtree doesn't exist
+        elif val > root.val:
+            root = root.right
+        elif val < root.val:
+            succ = root
+            root = root.left
+        else:
+            break
+        
+    return succ
+
+def get_inorder_predecessor(root, val):
+    pre = TreeNode(None)
+    
+    while root:
+        print('root val: ', root.val)
+        # Left subtree exists
+        if val == root.val and root.left:
+            return get_predecessor(root)
+        elif val < root.val:
+            root = root.left
+        elif val > root.val:
+            pre = root
+            root = root.right
+        else:
+            break
+            
+    return pre
         
 def delete(root, val):
     if not root:
@@ -102,7 +142,7 @@ if __name__ == '__main__':
     root = insert(root, 80)
     root = insert(root, 25)
     root = insert(root, 40)
-    root = insert(root, 68)
+    root = insert(root, 65)
     root = insert(root, 100)
     root = insert(root, 58)
     root = insert(root, 70)
@@ -124,15 +164,8 @@ if __name__ == '__main__':
     max_val = get_max(root)
     print('Maximum value of tree: ', max_val)
     
-    root = delete(root, 80)
-    print_values(root)
-    print()
+    successor = get_inorder_successor(root, 30)
+    print('30\'s successor is: ', successor.val)
     
-"""     root = delete(root, 25)
-    print_values(root)
-    print()
-    
-    root = delete(root, 30)
-    print_values(root)
-    print()
-     """
+    predecessor = get_inorder_predecessor(root, 30)
+    print('30\'s predecessor is: ', predecessor.val)
