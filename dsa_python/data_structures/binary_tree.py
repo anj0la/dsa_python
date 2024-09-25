@@ -14,21 +14,44 @@ class BinaryTree:
             return
         # Insert using BFS (Level order search) - where we use a queue to keep track of the nodes we have visisted
           
-    def pre_order_traversal(self):
-        if self.root:
+    def pre_order_traversal(self, root):
+        if root:
             print(self.root.val)
-            self.pre_order_traversal(self.root.left)
-            self.pre_order_traversal(self.root.right)
+            self.pre_order_traversal(root.left)
+            self.pre_order_traversal(root.right)
             
-    def in_order_traversal(self):
+    def in_order_traversal(self, root):
         if self.root:
-            self.in_order_traversal(self.root.left)
+            self.in_order_traversal(root.left)
             print(self.root.val)
-            self.in_order_traversal(self.root.right)
+            self.in_order_traversal(root.right)
             
-    def post_order_traversal(self):
+    def post_order_traversal(self, root):
         if self.root:
-            self.post_order_traversal(self.root.left)
-            self.post_order_traversal(self.root.right)
+            self.post_order_traversal(root.left)
+            self.post_order_traversal(root.right)
             print(self.root.val)
     
+    def level_order_traversal(self, root):
+        if root:
+            queue = []
+            queue.append(root)
+            
+            while queue:
+                node = queue.pop(0)
+                print(node.val, end=' ')
+                
+                if node.left:
+                    queue.append(node.left)
+                    
+                if node.right:
+                    queue.append(node.right)
+                    
+        
+tree = BinaryTree()
+tree.root = TreeNode(50)
+tree.root.left = TreeNode(30)
+tree.root.right = TreeNode(80)
+
+tree.level_order_traversal(tree.root)
+            
