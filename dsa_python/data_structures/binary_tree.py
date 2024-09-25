@@ -8,31 +8,51 @@ class BinaryTree:
     def __init__(self):
         self.root = None
         
-    def insert(self, val):
+    def insert_level_order(self, val):
         if not self.root:
             self.root = TreeNode(val)
             return
+        
+        queue = []
+        queue.append(self.root)
+        
+        while queue:
+            node = queue.pop(0)
+            
+            if not node.left:
+                node.left = TreeNode(val)
+                break
+            else:
+                queue.append(node.left)
+            
+            if not node.right:
+                node.right = TreeNode(val)
+                break
+            else:
+                queue.append(node.right)
+            
         # Insert using BFS (Level order search) - where we use a queue to keep track of the nodes we have visisted
           
     def pre_order_traversal(self, root):
         if root:
-            print(self.root.val)
+            print(root.val, end=' ')
             self.pre_order_traversal(root.left)
             self.pre_order_traversal(root.right)
             
     def in_order_traversal(self, root):
-        if self.root:
+        if root:
             self.in_order_traversal(root.left)
-            print(self.root.val)
+            print(root.val, end=' ')
             self.in_order_traversal(root.right)
             
     def post_order_traversal(self, root):
-        if self.root:
+        if root:
             self.post_order_traversal(root.left)
             self.post_order_traversal(root.right)
-            print(self.root.val)
+            print(root.val, end=' ')
     
     def level_order_traversal(self, root):
+        print('Level Order Traversal:', end=' ')
         if root:
             queue = []
             queue.append(root)
@@ -46,12 +66,18 @@ class BinaryTree:
                     
                 if node.right:
                     queue.append(node.right)
-                    
+        print()
         
 tree = BinaryTree()
-tree.root = TreeNode(50)
-tree.root.left = TreeNode(30)
-tree.root.right = TreeNode(80)
+tree.insert_level_order(50)
+tree.insert_level_order(30)
+tree.insert_level_order(80)
+tree.insert_level_order(25)
+tree.insert_level_order(40)
+tree.insert_level_order(65)
+tree.insert_level_order(100)
+tree.insert_level_order(58)
+tree.insert_level_order(70)
 
 tree.level_order_traversal(tree.root)
             
