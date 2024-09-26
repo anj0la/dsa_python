@@ -1,3 +1,5 @@
+from collections import deque
+
 class TreeNode:
     def __init__(self, val=0, left=None, right=None):
         self.val = val
@@ -68,6 +70,26 @@ class BinaryTree:
                     queue.append(node.right)
         print()
         
+    def print_tree_in_level_order(self, root):
+        queue, res = deque([root]), []
+
+        while queue:
+            level, size = [], len(queue)
+            for _ in range(size):
+                node = queue.popleft()
+                level.append(node.val)
+                
+                if node.left:
+                    queue.append(node.left)
+                    
+                if node.right:
+                    queue.append(node.right)
+                    
+            res.append(level)
+        
+        return res
+    
+        
 tree = BinaryTree()
 tree.insert_level_order(50)
 tree.insert_level_order(30)
@@ -80,4 +102,4 @@ tree.insert_level_order(58)
 tree.insert_level_order(70)
 
 tree.level_order_traversal(tree.root)
-            
+print(tree.print_tree_in_level_order(tree.root))
