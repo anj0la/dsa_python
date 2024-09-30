@@ -74,6 +74,22 @@ class Graph:
                     
         print()
         
+        
+    def dfs_recursive(self, s):
+        visited = set()
+        print(f'DFS (Recursive) at Vertex {s}:', end=' ')
+        
+        def dfs(v, visited):
+            if v not in visited:
+                print(v, end=' ')
+                visited.add(v)
+                
+                for u in range(self.V):
+                    if self.adj[v][u] == 1:
+                        dfs(u, visited)
+                        
+        return dfs(s, visited)
+ 
 if __name__ == '__main__':
     V = 5
     graph = Graph(V, is_directed=False)
@@ -88,5 +104,7 @@ if __name__ == '__main__':
     print('Edge Count: ', graph.edge_count())
 
     graph.print_graph()
-    graph.bfs(1)
-    graph.dfs(1)
+    graph.bfs(0)
+    graph.dfs(0)
+    graph.dfs_recursive(0)
+    print()

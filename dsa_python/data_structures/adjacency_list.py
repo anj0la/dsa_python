@@ -70,12 +70,27 @@ class Graph:
             v = stack.pop()
             print(v, end=' ')
             
-            for w in self.adj[v]:
+            for w in self.adj[v]: # Reverse the list to get the same result using the stack
                 if w not in visited:
                     stack.append(w)
                     visited.add(w)
                     
         print()
+        
+    
+    def dfs_recursive(self, s):
+        visited = set()
+        print(f'DFS (Recursive) at Vertex {s}:', end=' ')
+        
+        def dfs(v, visited):
+            if v not in visited:
+                print(v, end=' ')
+                visited.add(v)
+                
+                for w in self.adj[v]:
+                    dfs(w, visited)
+       
+        return dfs(s, visited)
         
         
 if __name__ == '__main__':
@@ -93,3 +108,5 @@ if __name__ == '__main__':
     graph.print_graph()
     graph.bfs(0)
     graph.dfs(0)
+    graph.dfs_recursive(0)
+    print()
