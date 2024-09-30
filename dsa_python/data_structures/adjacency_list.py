@@ -47,6 +47,22 @@ class Graph:
                 print(' -> ' + str(x), end='')
                 
             print()
+            
+    def bfs(self, s):
+        queue, visited = [s], set([s])
+        
+        while queue:
+            v = queue.pop(0)
+            print(v, end=' ')
+            
+            for w in self.adj[v]:
+                if w not in visited:
+                    queue.append(w)
+                    visited.add(w)    
+        print()
+        
+
+        
         
 if __name__ == '__main__':
     V = 5
@@ -61,3 +77,4 @@ if __name__ == '__main__':
     print('Vertex Count: ', graph.vertex_count())
     print('Edge Count: ', graph.edge_count())
     graph.print_graph()
+    graph.bfs(1)

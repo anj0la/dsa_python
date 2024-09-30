@@ -44,7 +44,20 @@ class Graph:
                 if self.adj[u][v] == 1:
                     print(' -> ' + str(v), end='')
             print()
-
+            
+    def bfs(self, s):
+        queue, visited = [s], set([s])
+        
+        while queue:
+            v = queue.pop(0)
+            print(v, end=' ')
+            
+            for u in range(self.V):
+                if self.adj[v][u] == 1 and u not in visited:
+                    queue.append(u)
+                    visited.add(u)  
+        print()
+            
         
 if __name__ == '__main__':
     V = 5
@@ -60,3 +73,4 @@ if __name__ == '__main__':
     print('Edge Count: ', graph.edge_count())
 
     graph.print_graph()
+    graph.bfs(0)
