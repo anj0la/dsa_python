@@ -46,6 +46,7 @@ class Graph:
             print()
             
     def bfs(self, s):
+        print(f'BFS at Vertex {s}:', end=' ')
         queue, visited = [s], set([s])
         
         while queue:
@@ -57,7 +58,21 @@ class Graph:
                     queue.append(u)
                     visited.add(u)  
         print()
+        
+    def dfs(self, s):
+        print(f'DFS (Stack) at Vertex {s}:', end=' ')
+        stack, visited = [s], set([s])
+        
+        while stack:
+            v = stack.pop()
+            print(v, end=' ')
             
+            for u in range(self.V):
+                if self.adj[v][u] == 1 and u not in visited:
+                    stack.append(u)
+                    visited.add(u)
+                    
+        print()
         
 if __name__ == '__main__':
     V = 5
@@ -73,4 +88,5 @@ if __name__ == '__main__':
     print('Edge Count: ', graph.edge_count())
 
     graph.print_graph()
-    graph.bfs(0)
+    graph.bfs(1)
+    graph.dfs(1)
