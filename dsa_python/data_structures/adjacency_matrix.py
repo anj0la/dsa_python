@@ -74,7 +74,6 @@ class Graph:
                     
         print()
         
-        
     def dfs_recursive(self, s):
         visited = set()
         print(f'DFS (Recursive) at Vertex {s}:', end=' ')
