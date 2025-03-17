@@ -1,7 +1,7 @@
-def is_palindrome(s: str):
+def is_palindrome(s: str) -> bool:
     return s == s[::-1]
 
-def is_palindrome_two_ptr(s: str):
+def is_palindrome_two_ptr(s: str) -> bool:
     left = 0
     right = len(s) - 1
     
