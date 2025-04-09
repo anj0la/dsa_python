@@ -1,4 +1,4 @@
-from data_structures.binary_heap import MaxHeap
+from dsa_python.data_structures.heaps.binary_heap import MaxHeap
 
 def heap_sort(arr: list[int]) -> None:
     """
