@@ -92,7 +92,6 @@ class WeightedAdjList:
             return len(self.adj[v])
         else:
             in_deg = sum([1 for lst in self.adj for u in lst if v in u])
-            # {u: 10} if v is in u
             out_deg = len(self.adj[v])
             
             return in_deg + out_deg
