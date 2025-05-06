@@ -23,7 +23,6 @@ def topsort(graph: AdjList):
             
     return ordering[::-1]
 
-
 def kahn_topsort(graph: AdjList):
     
     ### IN_DEG ###
