@@ -68,30 +68,20 @@ class WeightedAdjList:
         return len(self.adj)
     
     def edge_count(self) -> int:
-        count = total = 0     
-           
-        for lst in self.adj:
-            for _ in lst:
-                count += 1
-                
-            total += count
-            count = 0
-            
+        total = sum(len(lst) for lst in self.adj)
         return total // 2 if not self.directed else total
     
     def get_edge(self, u, v) -> int:
-        for w in self.adj[u]:
-            for key, val in w.items():
-                if key == v:
-                    return val
-            
+        for w, weight in self.adj[u]:
+            if w == v:
+                return weight    
         return -1    
     
     def deg(self, v) -> int:
         if not self.directed:
             return len(self.adj[v])
         else:
-            in_deg = sum([1 for lst in self.adj for u in lst if v in u])
+            in_deg = sum([1 for lst in self.adj for u, _ in lst if u == v])
             out_deg = len(self.adj[v])
             
             return in_deg + out_deg
@@ -100,31 +90,20 @@ class WeightedAdjList:
         if not self.directed:
             return len(self.adj[u])
         else:
-            in_edges = sum([1 for lst in self.adj for v in lst if u in v])
+            in_edges = sum([1 for lst in self.adj for v, _ in lst if v == u])
             out_edges = len(self.adj[u])
             
             return in_edges + out_edges
     
     def add_edge(self, u, v, w) -> None:
-        self.adj[u].append({v: w})
+        self.adj[u].append((v, w))
         if not self.directed:
-            self.adj[v].append({u: w})   
+            self.adj[v].append((u, w))   
     
     def remove_edge(self, u, v) -> None:
-        i = 0
-        for w in self.adj[u]:
-            for key in w.keys():
-                if key == v:
-                    self.adj[u].pop(i)
-            i += 1
-
+        self.adj[u] = [pair for pair in self.adj[u] if pair[0] != v]
         if not self.directed:
-            i = 0
-            for w in self.adj[v]:
-                for key in w.keys():
-                    if key == u:
-                        self.adj[v].pop(i)
-                i += 1
+            self.adj[v] = [pair for pair in self.adj[v] if pair[0] != u]
 
 if __name__ == '__main__':
     graph = WeightedAdjList(4, directed = False)

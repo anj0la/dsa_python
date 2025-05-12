@@ -1,6 +1,6 @@
 from collections import deque
 from data_structures.graphs.adj_list import AdjList
-        
+
 def bfs(graph: AdjList, s):
     queue, visited = deque([s]), {s}
     

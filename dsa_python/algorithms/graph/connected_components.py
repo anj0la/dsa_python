@@ -1,4 +1,5 @@
 from data_structures.graphs.adj_list import AdjList
+from data_structures.graphs.adj_matrix import AdjMatrix
 
 def get_components(G: AdjList):
     
@@ -60,7 +61,7 @@ def strongly_connected(G: AdjList):
         time += 1
         # Push the node onto the stack and mark that it is currently on the stack
         stack_member[v] = True 
-        stack.push(v)
+        stack.append(v)
         
         # For each adjacent node do the following
         for w in G.adj[v]:
@@ -84,7 +85,7 @@ def strongly_connected(G: AdjList):
                 u = stack.pop()
                 stack_member[u] = False
                 comp.append(u)
-                if u == v:
+                if v == u:
                     break
             
             # Append the SCC to the result
@@ -107,5 +108,68 @@ def strongly_connected(G: AdjList):
     for i in range(V):
         if disc[i] == -1:
             dfs(i)
+            
+    return res
+
+def get_components_union(edge_list: list[list[int]], n: int) -> list:
+    parent = list(range(n))
+    rank = [0] * n
+    
+    for u, v in edge_list:
+        union(parent, rank, u, v)
+        
+    for i in range(n):
+        parent[i] = find(parent, i)
+        
+    res = {}
+    
+    for i in range(n):
+        root = parent[i]
+        if root not in res:
+            res[root] = []
+            
+        res[root].append(i)
+        
+    return list(res.values())
+
+def find(parent, i):
+    if parent[i] == i:
+        return i
+    
+    parent[i] = find(parent[i])
+    return parent[i]
+
+def union(parent, rank, i, j):
+    i_root = find(i)
+    j_root = find(j)
+    
+    if i_root == j_root: return
+    
+    if rank[i_root] < rank[j_root]:
+        parent[i_root] = j_root
+    elif rank[i_root] > rank[j_root]:
+        parent[j_root] = i_root
+    else:
+        parent[j_root] = i_root
+        rank[i_root] += 1
+        
+def get_components_matrix(G: AdjMatrix):
+    V = len(G.matrix)
+    visited = [False] * V
+    res = []
+    
+    def dfs(u, comp):
+        visited[u] = True
+        comp.append(u)
+        
+        for v in range(V):
+            if G.matrix[u][v] == 1 and not visited[v]:
+                dfs(v, comp)
+    
+    for i in range(V):
+        if not visited[i]:
+            comp = []
+            dfs(i)
+            res.append(comp)
             
     return res

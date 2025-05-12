@@ -1,15 +1,4 @@
 from data_structures.graphs.adj_list import AdjList
-
-def dfs_recursive(graph: AdjList, s, visited = None): 
-    if not visited:
-        visited = [False] * len(graph.adj)
-        
-    visited[s] = True
-    
-    for w in graph.adj[s]:
-        if not visited[w]:
-            dfs_recursive(graph, w, visited)
-            
             
 def dfs(graph: AdjList, s):
     visited = [False] * len(graph.adj)
@@ -49,7 +38,3 @@ def dfs_stack(graph, s):
                 visited.add(w)
                 
     return visited
-
-
-                
-    
