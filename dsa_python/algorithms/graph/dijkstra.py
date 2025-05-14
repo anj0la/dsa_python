@@ -59,5 +59,16 @@ def dijkstra_matrix(graph: WeightedAdjMatrix, source: int) -> dict:
                     
     return dist
        
+def all_pairs_dijkstra(graph: WeightedAdjList):
+    # 1. Initialization
+    V = len(graph.adj)
+    result = [[] for _ in range(V)]
+    
+    # 2. Call Dijkstra's Algorithm for each vertex
+    for u in range(V):
+        dist = dijkstra(graph, u)
+        result[u] = dist
+                
+    return result
             
     

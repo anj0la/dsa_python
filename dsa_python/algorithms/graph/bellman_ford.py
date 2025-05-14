@@ -16,7 +16,7 @@ def bellman_ford(graph: WeightedEdgeList, source: int) -> list:
     # 3. Check for negative-weight cycles
     for u, v, w in graph.edge_list:
         if dist[u] + w < dist[v]:
-            return # detected a negative-weight cycle
+            return [] # detected a negative-weight cycle
     
     return dist
 
@@ -39,6 +39,6 @@ def bellman_ford_matrx(graph: WeightedAdjMatrix, source: int) -> dict:
         for v in range(V):
             if graph.matrix[u][v] != float('inf'):
                 if dist[u] + graph.matrix[u][v] < dist[v]:
-                        return
+                        return {}
                     
     return dist
