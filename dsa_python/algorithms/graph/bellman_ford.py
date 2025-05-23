@@ -3,7 +3,12 @@ from data_structures.graphs.edge_list import WeightedEdgeList
 
 def bellman_ford(graph: WeightedEdgeList, source: int) -> list:
     # 1. Initialization
-    V = len(graph.edge_list)
+    vertices = set()
+    for u, v, _ in graph.edge_list:
+        vertices.add(u)
+        vertices.add(v)
+        
+    V = len(vertices)
     dist = [float('inf')] * V
     dist[source] = 0
     
